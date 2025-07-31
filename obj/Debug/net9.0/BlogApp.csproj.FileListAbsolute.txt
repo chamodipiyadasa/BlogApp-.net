@@ -218,3 +218,4 @@
 /Users/chamodipiyadasa/Desktop/projects/DOTNET/BlogApp/obj/Debug/net9.0/BlogApp.pdb
 /Users/chamodipiyadasa/Desktop/projects/DOTNET/BlogApp/obj/Debug/net9.0/BlogApp.genruntimeconfig.cache
 /Users/chamodipiyadasa/Desktop/projects/DOTNET/BlogApp/obj/Debug/net9.0/ref/BlogApp.dll
+/Users/chamodipiyadasa/Desktop/projects/DOTNET/BlogApp/obj/Debug/net9.0/compressed/pnwenzrn3z-hpqmhi24ei.gz

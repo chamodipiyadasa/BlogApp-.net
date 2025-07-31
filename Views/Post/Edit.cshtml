@@ -1,15 +1,40 @@
 @model BlogApp.Models.Post
+@{
+    ViewData["Title"] = "Edit Post";
+}
 
-<h2>Edit Post</h2>
+<div class="container">
+    <section class="section-header">
+        <h1 class="section-title">Edit Your Story</h1>
+        <p class="vintage-subtitle">Perfect your narrative</p>
+        <div class="decorative-line"></div>
+    </section>
 
-<form method="post">
-    <input type="hidden" asp-for="Id" /> <!-- Hidden input to track which post -->
-    
-    <label>Title:</label><br />
-    <input asp-for="Title" /><br /><br />
+    <form asp-action="Edit" class="vintage-form">
+        <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+        
+        <input type="hidden" asp-for="Id" />
+        <input type="hidden" asp-for="CreatedAt" />
+        
+        <div class="form-group">
+            <label asp-for="Title" class="form-label">Story Title</label>
+            <input asp-for="Title" class="form-control" />
+            <span asp-validation-for="Title" class="text-danger"></span>
+        </div>
 
-    <label>Content:</label><br />
-    <textarea asp-for="Content"></textarea><br /><br />
+        <div class="form-group">
+            <label asp-for="Content" class="form-label">Your Story</label>
+            <textarea asp-for="Content" class="form-control" rows="12"></textarea>
+            <span asp-validation-for="Content" class="text-danger"></span>
+        </div>
 
-    <button type="submit">Save Changes</button>
-</form>
+        <div class="form-group text-center">
+            <button type="submit" class="vintage-btn btn-primary me-3">💾 Save Changes</button>
+            <a asp-controller="Post" asp-action="Details" asp-route-id="@Model.Id" class="vintage-btn btn-secondary">Cancel</a>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

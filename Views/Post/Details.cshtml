@@ -1,8 +1,24 @@
 @model BlogApp.Models.Post
+@{
+    ViewData["Title"] = Model.Title;
+}
 
-<h2>@Model.Title</h2>
-<p><i>Posted on @Model.CreatedAt.ToShortDateString()</i></p>
-<hr />
-<p>@Model.Content</p>
+<div class="container">
+    <article class="post-detail">
+        <h1 class="post-detail-title">@Model.Title</h1>
+        <div class="post-detail-meta">
+            Published on @Model.CreatedAt.ToString("MMMM dd, yyyy 'at' h:mm tt")
+        </div>
+        <div class="decorative-line"></div>
+        
+        <div class="post-detail-content">
+            @Html.Raw(Model.Content.Replace("\n", "<br>"))
+        </div>
 
-<a href="/Post">← Back to list</a>
+        <div class="post-actions">
+            <a asp-controller="Post" asp-action="Edit" asp-route-id="@Model.Id" class="post-action action-edit">Edit This Post</a>
+            <a asp-controller="Post" asp-action="Delete" asp-route-id="@Model.Id" class="post-action action-delete">Delete Post</a>
+            <a asp-controller="Post" asp-action="Index" class="post-action action-view">← Back to All Posts</a>
+        </div>
+    </article>
+</div>

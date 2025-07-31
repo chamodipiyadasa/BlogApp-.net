@@ -1,15 +1,45 @@
 @model BlogApp.Models.Post
+@{
+    ViewData["Title"] = "Delete Post";
+}
 
-<h2>Delete Post</h2>
+<div class="container">
+    <section class="section-header">
+        <h1 class="section-title" style="color: var(--vintage-red);">⚠️ Delete Story</h1>
+        <p class="vintage-subtitle">Are you sure you want to delete this story? This action cannot be undone.</p>
+        <div class="decorative-line"></div>
+    </section>
 
-<p>Are you sure you want to delete this post?</p>
+    <div class="vintage-form">
+        <div class="post-card" style="border-top: 4px solid var(--vintage-red);">
+            <h3 class="post-title">@Model.Title</h3>
+            <p class="post-date">Created on @Model.CreatedAt.ToString("MMMM dd, yyyy 'at' h:mm tt")</p>
+            
+            @if (!string.IsNullOrEmpty(Model.Content))
+            {
+                <div class="post-content-preview">
+                    @{
+                        var preview = Model.Content.Length > 200 
+                            ? Model.Content.Substring(0, 200) + "..." 
+                            : Model.Content;
+                    }
+                    @Html.Raw(preview.Replace("\n", "<br>"))
+                </div>
+            }
+        </div>
 
-<h3>@Model.Title</h3>
-<p>@Model.Content</p>
-<p><i>Created on @Model.CreatedAt.ToShortDateString()</i></p>
-
-<form method="post">
-    <input type="hidden" asp-for="Id" />
-    <button type="submit">Yes, Delete</button>
-    <a href="/Post">Cancel</a>
-</form>
+        <form asp-action="Delete" class="text-center mt-4">
+            <input type="hidden" asp-for="Id" />
+            <div class="alert alert-warning" role="alert">
+                <strong>Warning!</strong> This will permanently delete your story and cannot be undone.
+            </div>
+            
+            <button type="submit" class="vintage-btn" style="background-color: var(--vintage-red); color: white; border-color: var(--vintage-red); margin-right: 1rem;">
+                🗑️ Yes, Delete Forever
+            </button>
+            <a asp-controller="Post" asp-action="Details" asp-route-id="@Model.Id" class="vintage-btn btn-secondary">
+                Cancel
+            </a>
+        </form>
+    </div>
+</div>

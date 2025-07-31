@@ -1,31 +1,59 @@
 @model List<BlogApp.Models.Post>
-    
-
-<h2>Blog Posts</h2>
-<a href="/Post/Create">+ New Post</a>
-
 @{
-    ViewData["Title"] = "Welcome";
+    ViewData["Title"] = "All Posts";
 }
 
-<div class="container mt-5 text-center">
-    <h1 class="display-4">Welcome to BlogApp 📝</h1>
-    <p class="lead">Share your thoughts, read others’, and grow together.</p>
+<div class="container">
+    <section class="section-header">
+        <h1 class="section-title">All Stories</h1>
+        <p class="vintage-subtitle">Discover all the amazing stories shared by our community</p>
+        <div class="decorative-line"></div>
+        <div class="action-buttons">
+            <a asp-controller="Post" asp-action="Create" class="vintage-btn btn-secondary">+ Write New Post</a>
+        </div>
+    </section>
 
-    <div class="mt-4">
-        <a class="btn btn-primary btn-lg me-2" asp-controller="Post" asp-action="Index">Browse Posts</a>
-        <a class="btn btn-success btn-lg" asp-controller="Post" asp-action="Create">Create a Post</a>
-    </div>
+    @if (Model != null && Model.Any())
+    {
+        <div class="posts-grid">
+            @foreach (var post in Model.OrderByDescending(p => p.CreatedAt))
+            {
+                <article class="post-card">
+                    <h3 class="post-title">
+                        <a asp-controller="Post" asp-action="Details" asp-route-id="@post.Id">@post.Title</a>
+                    </h3>
+                    <p class="post-date">@post.CreatedAt.ToString("MMMM dd, yyyy 'at' h:mm tt")</p>
+                    @if (!string.IsNullOrEmpty(post.Content))
+                    {
+                        <div class="post-content-preview">
+                            @{
+                                var preview = post.Content.Length > 200 
+                                    ? post.Content.Substring(0, 200) + "..." 
+                                    : post.Content;
+                            }
+                            @preview
+                        </div>
+                    }
+                    <div class="post-actions">
+                        <a asp-controller="Post" asp-action="Details" asp-route-id="@post.Id" class="post-action action-view">Read Full Story</a>
+                        <a asp-controller="Post" asp-action="Edit" asp-route-id="@post.Id" class="post-action action-edit">Edit</a>
+                        <a asp-controller="Post" asp-action="Delete" asp-route-id="@post.Id" class="post-action action-delete">Delete</a>
+                    </div>
+                </article>
+            }
+        </div>
+        
+        <div class="text-center mt-4">
+            <p class="text-muted">Showing @Model.Count @(Model.Count == 1 ? "story" : "stories")</p>
+        </div>
+    }
+    else
+    {
+        <div class="empty-state">
+            <h3>No Stories Yet</h3>
+            <p>Be the first to share your thoughts and start the conversation.</p>
+            <div class="decorative-line"></div>
+            <a asp-controller="Post" asp-action="Create" class="vintage-btn btn-primary">Write Your First Post</a>
+        </div>
+    }
 </div>
-
-<ul>
-@foreach (var post in Model)
-{
-    <li>
-        <b>@post.Title</b> (@post.CreatedAt.ToShortDateString()) |
-        <a href="/Post/Details/@post.Id">View</a> |
-        <a href="/Post/Edit/@post.Id">Edit</a> |
-        <a href="/Post/Delete/@post.Id">Delete</a>
-    </li>
-}
-</ul>
