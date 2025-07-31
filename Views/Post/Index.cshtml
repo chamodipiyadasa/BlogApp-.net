@@ -1,7 +1,22 @@
 @model List<BlogApp.Models.Post>
+    
 
 <h2>Blog Posts</h2>
 <a href="/Post/Create">+ New Post</a>
+
+@{
+    ViewData["Title"] = "Welcome";
+}
+
+<div class="container mt-5 text-center">
+    <h1 class="display-4">Welcome to BlogApp 📝</h1>
+    <p class="lead">Share your thoughts, read others’, and grow together.</p>
+
+    <div class="mt-4">
+        <a class="btn btn-primary btn-lg me-2" asp-controller="Post" asp-action="Index">Browse Posts</a>
+        <a class="btn btn-success btn-lg" asp-controller="Post" asp-action="Create">Create a Post</a>
+    </div>
+</div>
 
 <ul>
 @foreach (var post in Model)

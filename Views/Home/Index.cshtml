@@ -1,10 +1,18 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@model List<BlogApp.Models.Post>
+
+@{
+    ViewData["Title"] = "Home";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome to BlogApp</h1>
-    <p class="lead">Your space to share thoughts and ideas.</p>
-    <a class="btn btn-primary" asp-controller="Post" asp-action="Index">View Posts</a>
-    <a class="btn btn-success" asp-controller="Post" asp-action="Create">Create New Post</a>
-</div>
+<h1 class="mb-4">Recent Posts</h1>
+
+@foreach (var post in Model)
+{
+    <div class="card mb-3">
+        <div class="card-body">
+            <h4 class="card-title">@post.Title</h4>
+            <p class="card-text">@post.Content.Substring(0, Math.Min(100, post.Content.Length))...</p>
+            <a asp-controller="Post" asp-action="Details" asp-route-id="@post.Id" class="btn btn-sm btn-outline-primary">Read more</a>
+        </div>
+    </div>
+}
