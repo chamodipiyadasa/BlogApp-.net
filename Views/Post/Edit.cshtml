@@ -1,0 +1,15 @@
+@model BlogApp.Models.Post
+
+<h2>Edit Post</h2>
+
+<form method="post">
+    <input type="hidden" asp-for="Id" /> <!-- Hidden input to track which post -->
+    
+    <label>Title:</label><br />
+    <input asp-for="Title" /><br /><br />
+
+    <label>Content:</label><br />
+    <textarea asp-for="Content"></textarea><br /><br />
+
+    <button type="submit">Save Changes</button>
+</form>

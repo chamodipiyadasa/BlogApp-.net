@@ -1,0 +1,8 @@
+@model BlogApp.Models.Post
+
+<h2>@Model.Title</h2>
+<p><i>Posted on @Model.CreatedAt.ToShortDateString()</i></p>
+<hr />
+<p>@Model.Content</p>
+
+<a href="/Post">← Back to list</a>

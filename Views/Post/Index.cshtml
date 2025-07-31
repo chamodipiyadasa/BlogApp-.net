@@ -1,0 +1,16 @@
+@model List<BlogApp.Models.Post>
+
+<h2>Blog Posts</h2>
+<a href="/Post/Create">+ New Post</a>
+
+<ul>
+@foreach (var post in Model)
+{
+    <li>
+        <b>@post.Title</b> (@post.CreatedAt.ToShortDateString()) |
+        <a href="/Post/Details/@post.Id">View</a> |
+        <a href="/Post/Edit/@post.Id">Edit</a> |
+        <a href="/Post/Delete/@post.Id">Delete</a>
+    </li>
+}
+</ul>

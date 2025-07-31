@@ -48,11 +48,16 @@ namespace BlogApp.Controllers
             return RedirectToAction("Index");
         }
 
-        public IActionResult Delete(int id)
+        // ✅ Perform delete after user confirms
+        [HttpPost]
+        public IActionResult DeleteConfirmed(int id)
         {
             var post = _db.Posts.Find(id);
-            _db.Posts.Remove(post);
-            _db.SaveChanges();
+            if (post != null)
+            {
+                _db.Posts.Remove(post);
+                _db.SaveChanges();
+            }
             return RedirectToAction("Index");
         }
 
